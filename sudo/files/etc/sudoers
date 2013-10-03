@@ -1,0 +1,38 @@
+## Sudoers allows particular users to run various commands as
+## the root user, without needing the root password.
+
+Defaults	!lecture
+Defaults	!requiretty
+Defaults	!set_logname
+Defaults	always_set_home
+Defaults	authenticate
+Defaults	env_reset
+Defaults	env_keep = "COLORS DISPLAY HOSTNAME USERNAME XAUTHORITY"
+Defaults	secure_path		= /sbin:/bin:/usr/sbin:/usr/bin
+Defaults	timestamp_timeout	= 1
+
+%wheel		ALL =	ALL
+
+# Geprivilegeerde operaties die geen wijzigingen
+# op het systeem kunnen veroorzaken:
+%wheel		ALL =	NOPASSWD:/bin/cat
+%wheel		ALL =	NOPASSWD:/bin/ls
+%wheel		ALL =	NOPASSWD:/sbin/iptables -L -n
+%wheel		ALL =	NOPASSWD:/usr/bin/yum list updates
+
+# Geprivilegeerde operaties die geen blijvende wijzigingen
+# op het systeem kunnen veroorzaken:
+#%wheel		ALL =	NOPASSWD:/bin/kill
+#%wheel		ALL =	NOPASSWD:/sbin/reboot
+#%wheel		ALL =	NOPASSWD:/sbin/service
+
+# Geprivilegeerde operaties die alleen vertrouwde wijzigingen
+# op het systeem kunnen veroorzaken:
+#%wheel		ALL =	NOPASSWD:/usr/bin/yum update
+
+## Read drop-in files from /etc/sudoers.d (the # here does not mean a comment)
+#DO NOT includedir /etc/sudoers.d
+#DO NOT include /etc/sudoers.%h
+
+ruurd		ALL = ALL
+##### TEST LINE######

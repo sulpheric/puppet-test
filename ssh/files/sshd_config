@@ -1,0 +1,27 @@
+#
+# Zie ook /etc/pam.d/sshd
+# PAM-restricties worden niet afgedwongen bij pubkey login
+#
+# Centraal gemanaged door Puppet. Wijzigingen doorvoeren via Puppet Master. Lokale
+# instellingen worden mogelijk overschreven als deze niet in overeenstemming zijn met
+# de master.
+#
+LogLevel                                VERBOSE
+ListenAddress				0.0.0.0:22
+Protocol				2
+HostKey                                 /etc/ssh/ssh_host_rsa_key
+AuthorizedKeysFile                      /etc/ssh/trust/%u.pubkey
+AllowGroups				wheel pulse
+Strictmodes                             no
+UseLogin                                no
+PermitRootLogin                         no
+PasswordAuthentication                  no
+PubkeyAuthentication                    yes
+ChallengeResponseAuthentication         yes
+UsePAM 					yes
+AllowAgentForwarding                    yes
+AllowTcpForwarding                      yes
+X11Forwarding                           yes
+
+# override default of no subsystems
+Subsystem       sftp    /usr/libexec/openssh/sftp-server

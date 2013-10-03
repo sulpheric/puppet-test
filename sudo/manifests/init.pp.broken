@@ -1,0 +1,16 @@
+# Start of Sudo configuration
+class sudo {
+$group = "%testgroup"
+augeas
+{
+ "/etc/sudoers":
+   context => "/files",
+   changes => [
+    set etc/sudoers/spec[last()+1]/user {$group},
+    set etc/sudoers/spec[last()]/host_group/host ALL,
+    set etc/sudoers/spec[last()]/host_group/command ALL,
+    set etc/sudoers/spec[last()]/host_group/command/runas_user ALL,
+    ],
+  onlyif   => get etc/sudoers/spec[last()]/user != {$group}
+ }
+}
